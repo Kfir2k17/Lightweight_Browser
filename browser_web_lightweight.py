@@ -31,8 +31,14 @@ class Website:
         data = self.client.recv(8000)
         decoded_data = data.decode()
         print(decoded_data)
-        status_code = int(decoded_data.split('\r\n')[0].split(' ')[1])
+        response_lines = decoded_data.split('\r\n')
+        status_code = int(response_lines[0].split(' ')[1])
+
+
+
+    def create_dir(self, status_code):
         if status_code == 200 and not os.path.isdir("." + self.fixed_url):
-            os.mkdir("www." + self.fixed_url)
+            os.mkdir(self.fixed_url)
+
 
 w1 = Website()
